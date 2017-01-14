@@ -10,16 +10,16 @@ of its members.
 
 Categories are:
 
-    1. d Directories
-    1. f Files
-    1. l Symbolic Links
-    1. u Unresolved Symbolic Links
-    1. p Named pipes (FIFO)
-    1. s Sockets
-    1. b Block special files
-    1. c Character special files
-    1. ? Other
-    1. E ERROR
+    * d Directories
+    * f Files
+    * l Symbolic Links
+    * u Unresolved Symbolic Links
+    * p Named pipes (FIFO)
+    * s Sockets
+    * b Block special files
+    * c Character special files
+    * ? Other
+    * E ERROR
 
 Unresolved symbolic links are treated as a separate
 category from resolved symbolic links.

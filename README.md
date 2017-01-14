@@ -11,15 +11,15 @@ of its members.
 Categories are:
 
     1. d Directories
-    2. f Files
-    3. l Symbolic Links
-    4. u Unresolved Symbolic Links
-    5. p Named pipes (FIFO)
-    6. s Sockets
-    7. b Block special files
-    8. c Character special files
-    9. ? Other
-   10. E ERROR
+    1. f Files
+    1. l Symbolic Links
+    1. u Unresolved Symbolic Links
+    1. p Named pipes (FIFO)
+    1. s Sockets
+    1. b Block special files
+    1. c Character special files
+    1. ? Other
+    1. E ERROR
 
 Unresolved symbolic links are treated as a separate
 category from resolved symbolic links.
@@ -107,8 +107,10 @@ The output has three levels:
 2. file types (category)
 3. file names
 
-The top level is shown only when `--show-dirs` option is given.
-
+Indentation is cumulative.
+That is, the number of spaces used to indent a line on any level
+is not an absolute number of columns, but a number of columns
+to further indent relative to the indentation of its parent.
 
 ## History
 

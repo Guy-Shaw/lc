@@ -233,8 +233,9 @@ print_indent(FILE *dstf, size_t cols)
 static void
 print_fnames(FILE *dstf, strv_t *sfnv, lc_options_t *lcopt)
 {
+    size_t l1_indent;
     size_t l2_indent;
-    size_t mc_indent;
+    size_t l3_indent;
     int rv;
 
     qsort((void *)sfnv->strv, sfnv->strc, sizeof (char *), cmpstringp);
@@ -242,10 +243,11 @@ print_fnames(FILE *dstf, strv_t *sfnv, lc_options_t *lcopt)
         lcopt->lc_cols = determine_line_length(0);
     }
 
-    l2_indent = lcopt->lc_indent_global + lcopt->lc_indent_types;
-    mc_indent = l2_indent + lcopt->lc_indent_files;
+    l1_indent = lcopt->lc_showdirs ? lcopt->lc_indent_global : 0;
+    l2_indent = l1_indent + lcopt->lc_indent_types;
+    l3_indent = l2_indent + lcopt->lc_indent_files;
     rv = mc(dstf, sfnv->strc, (const char **)sfnv->strv, lcopt->lc_cols,
-             mc_indent, int_to_bool(lcopt->lc_horizontal));
+             l3_indent, int_to_bool(lcopt->lc_horizontal));
     if (rv) {
         eprintf("mc failed.\n");
     }
@@ -259,10 +261,12 @@ print_all_categories(FILE *dstf, lc_options_t *lcopt)
     size_t n;
     index_t i;
     size_t nprint;
+    size_t l1_indent;
     size_t l2_indent;
 
     n = sizeof (category_table) / sizeof (category_table[0]);
-    l2_indent = lcopt->lc_indent_global + lcopt->lc_indent_types;
+    l1_indent = lcopt->lc_showdirs ? lcopt->lc_indent_global : 0;
+    l2_indent = l1_indent + lcopt->lc_indent_types;
     nprint = 0;
     for (i = 0; i < n; ++i) {
         catp = &category_table[i];

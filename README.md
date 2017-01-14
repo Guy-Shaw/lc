@@ -61,7 +61,12 @@ The default is to show all file types.
 
 Use _n_ as the display width.
 
-The default is 80 characters.
+If no `--width` is specified, then
+the display width is set to the environment variable, 'COLUMNS',
+if it exists.  If not, then the result of `tput cols` is used,
+provided the output is a terminal.
+If screen columns cannot be determined, then the default is 80 characters.
+
 `lc` knows nothing of fonts,
 and certainly does not provide for variable width fonts.
 

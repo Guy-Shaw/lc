@@ -5,7 +5,7 @@
  *
  * Description:
  *   Decode a number as a simple number less than 1024 (or 1000),
- *   followed by an SI suffix ( K M G T P E Z ).  If the number
+ *   followed by an SI suffix ( K M G T P E Z Y ).  If the number
  *   is less than 1024 (or 1000) then it is unchanged.  For numbers
  *   greater than 1024 (or 1000) the result is range reduced,
  *   by integer division, and the appropriate suffix is appended.
@@ -42,7 +42,7 @@
 typedef unsigned long long uint64_t;
 typedef unsigned int uint_t;
 
-static char sfx[] = { 0, 'K', 'M', 'G', 'T', 'P', 'E', 'Z' };
+static char sfx[] = { 0, 'K', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y' };
 
 /**
  * @brief Decode a number as simple number with an SI suffix.

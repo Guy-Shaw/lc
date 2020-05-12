@@ -35,10 +35,10 @@
     // Import type FILE
     // Import var stdout
 
+#include <cscript.h>
+
 extern char *decode_esym_r(char *buf, size_t bufsz, int err);
 extern char *decode_emsg_r(char *buf, size_t bufsz, int err);
-
-extern FILE *errprint_fh;
 
 /**
  * @brief Explain an errno value in 3 ways: number, symbol, description.
@@ -80,7 +80,7 @@ explain_err(int err)
 }
 
 /**
- * @brief Explain the errno value, |err|, to the FILE errprint_fh.
+ * @brief Explain the errno value, |err|, to the FILE eprint_fh.
  * @param err  IN  The errno value to be explained.
  * @return void
  *
@@ -88,5 +88,5 @@ explain_err(int err)
 void
 eexplain_err(int err)
 {
-    fexplain_err(errprint_fh, err);
+    fexplain_err(eprint_fh, err);
 }

@@ -65,8 +65,8 @@ static lc_options_t lcopt = {
     .lc_horizontal    = 0,
 };
 
-FILE *errprint_fh = NULL;
-FILE *dbgprint_fh = NULL;
+FILE *eprint_fh = NULL;
+FILE *dprint_fh = NULL;
 
 enum indent_options {
     INDENT_GLOBAL   = 0x10001,
@@ -435,7 +435,7 @@ main(int argc, char **argv)
     }
 
     if (verbose) {
-        fshow_str_array(errprint_fh, filec, filev);
+        fshow_str_array(eprint_fh, filec, filev);
     }
 
     if (verbose && optind < argc) {

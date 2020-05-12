@@ -37,15 +37,15 @@ typedef unsigned int uint_t;
 
 // eprint.h
 
-extern FILE *errprint_fh;
+extern FILE *eprint_fh;
 
-#define eprint(str) fputs((str), errprint_fh)
-#define eputchar(c) putc((c), errprint_fh)
+#define eprint(str) fputs((str), eprint_fh)
+#define eputchar(c) putc((c), eprint_fh)
 
 #if defined(__GNUC__)
 
 #define eprintf(fmt, ...) \
-    fprintf(errprint_fh, (fmt), ## __VA_ARGS__)
+    fprintf(eprint_fh, (fmt), ## __VA_ARGS__)
 
 #else
 
@@ -57,15 +57,15 @@ extern int eprintf(const char *, ...);
 
 extern bool debug;
 
-extern FILE *dbgprint_fh;
+extern FILE *dprint_fh;
 
-#define dbg_print(str) fputs((str), dbgprint_fh)
-#define dbg_putchar(c) putc((c), dbgprint_fh)
+#define dbg_print(str) fputs((str), dprint_fh)
+#define dbg_putchar(c) putc((c), dprint_fh)
 
 #if defined(__GNUC__)
 
 #define dbg_printf(fmt, ...) \
-    ({ if (debug) { fprintf(dbgprint_fh, (fmt), ## __VA_ARGS__); }; })
+    ({ if (debug) { fprintf(dprint_fh, (fmt), ## __VA_ARGS__); }; })
 
 #else
 
@@ -137,9 +137,9 @@ extern void   dbg_show_svar(const char *var, const char *value);
 extern void * guard_malloc(size_t sz);
 extern void * guard_realloc(void *memp, size_t sz);
 extern void * guard_calloc(size_t nelem, size_t sz);
-extern void   fexpain_err(FILE *f, int err);
-extern void   eexlpain_err(int err);
-extern void   expain_err(int err);
+extern void   fexplain_err(FILE *f, int err);
+extern void   eexplain_err(int err);
+extern void   explain_err(int err);
 extern int    file_test(const char *tests, const char *fname);
 
 // Note: msg is _not_ of type @type{const char *}, because the message

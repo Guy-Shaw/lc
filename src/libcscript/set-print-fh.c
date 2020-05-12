@@ -8,7 +8,7 @@
  *   messages and for printing debug messages.  They can be setup
  *   in some custom way.  But, the default is to check to see if
  *   stderr (fd 2) is directed to the same underlying device as
- *   stdout (fd 1), and if so, redirect both errprint_fh and dbgprint_fh
+ *   stdout (fd 1), and if so, redirect both eprint_fh and dprint_fh
  *   to stdout; but if they are different, then redirect to stderr.
  *
  * Copyright (C) 2015-2016 Guy Shaw
@@ -50,9 +50,9 @@
 #include <unistd.h>
     // Import fstat()
 
+#include <cscript.h>
+
 extern char *program_name;
-extern FILE *errprint_fh;
-extern FILE *dbgprint_fh;
 
 struct fid {
     dev_t dev;
@@ -95,9 +95,9 @@ stderr_redirected(void)
 }
 
 /**
- * @brief Standard setup for the file handle, |errprint_fh|.
+ * @brief Standard setup for the file handle, |eprint_fh|.
  *
- * The file handle, |errprint_fh|, is set  depending on whether
+ * The file handle, |eprint_fh|, is set  depending on whether
  * |stdout| and |stderr| are directed to the same underlying file.
  *
  */
@@ -111,13 +111,13 @@ set_eprint_fh(void)
     rv = stderr_redirected();
     efh = (rv == 0) ? stdout : stderr;
 
-    if (errprint_fh == NULL) {
-        errprint_fh = efh;
+    if (eprint_fh == NULL) {
+        eprint_fh = efh;
     }
 }
 
 /**
- * @brief Setup the file handle, |dbgprint_fh|.
+ * @brief Setup the file handle, |dprint_fh|.
  *
  */
 
@@ -127,32 +127,32 @@ set_debug_fh(const char *dbg_fname)
     char dbg_envar[32];
 
     if (dbg_fname == NULL) {
-        dbgprint_fh = NULL;
+        dprint_fh = NULL;
         return;
     }
 
     if (dbg_fname[0] != '\0') {
-        dbgprint_fh = fopen(dbg_fname, "w");
+        dprint_fh = fopen(dbg_fname, "w");
         return;
     }
 
     snprintf(dbg_envar, sizeof (dbg_envar), "DEBUG.%s", program_name);
     dbg_fname = getenv(dbg_envar);
     if (dbg_fname) {
-        dbgprint_fh = fopen(dbg_fname, "w");
-        if (dbgprint_fh) {
+        dprint_fh = fopen(dbg_fname, "w");
+        if (dprint_fh) {
             return;
         }
     }
 
-    dbgprint_fh = fopen("/proc/fd/self/3", "w");
-    if (dbgprint_fh) {
+    dprint_fh = fopen("/proc/fd/self/3", "w");
+    if (dprint_fh) {
         return;
     }
 
-    dbgprint_fh = errprint_fh;
-    if (dbgprint_fh) {
+    dprint_fh = eprint_fh;
+    if (dprint_fh) {
         return;
     }
-    dbgprint_fh = stderr;
+    dprint_fh = stderr;
 }

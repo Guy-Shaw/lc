@@ -79,6 +79,6 @@ void
 dbg_print_strv(strv_t *sv)
 {
     if (debug) {
-        f_print_strv(dbgprint_fh, sv);
+        f_print_strv(dprint_fh, sv);
     }
 }
